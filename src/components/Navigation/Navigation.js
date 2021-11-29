@@ -13,13 +13,7 @@ function Navigation() {
       </NavLink>
 
       {isLoggedIn && (
-        <NavLink
-          className={s.link}
-          to="/contacts"
-          exact
-          // className={s.link}
-          // activeClassName={s.activeLink}
-        >
+        <NavLink className={s.link} to="/contacts" exact>
           Контакты
         </NavLink>
       )}

@@ -51,19 +51,3 @@ function App() {
 }
 
 export default App;
-
-// =======================================
-// import {Router, Route, Routes} from 'react-router-dom'
-//  <Routes>
-//         <Route path='/' element={<HomeView />} />
-//         <Route path='/register' element={<RegisterView />} />
-//         <Route path='/login' element={<LoginView />} />
-//         <Route path='/contacts' element={<ContactView />} />
-
-//          <Route exact path='/contacts' componennt={Contacts} />
-//      <Route  path='*' element={<Error/>} />
-//          < Route
-//           path="*"
-//           element={< p > Здесь ничего нет! </p>}
-//         />
-//       </Routes>

@@ -11,10 +11,7 @@ import {
 } from 'redux-persist';
 import storage from 'redux-persist/lib/storage'; // defaults to localStorage for web
 import contactReducer from 'redux/contacts/contact-slice';
-// import { contactReducer } from 'redux/contacts/contact-slice';
-// import { authReducer } from 'redux/auth/auth-slice';
 import authReducer from 'redux/auth/auth-slice';
-// import {authReducer} from './auth/auth-slice'
 
 const middleware = [
   ...getDefaultMiddleware({

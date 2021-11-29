@@ -84,6 +84,9 @@ export const filterContact = createAsyncThunk(
     try {
       const response = await fetch(`?filter=${value}`, {
         metod: 'GET',
+        headers: {
+          Authorization: [JSON.parse(getToken())],
+        },
       });
       if (!response.ok) {
         throw new Error("Can't filtered contact!Error Server!");

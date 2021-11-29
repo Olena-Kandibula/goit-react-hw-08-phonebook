@@ -14,28 +14,26 @@ function ContactList() {
   const filter = useSelector(getFilter);
 
   const dispatch = useDispatch();
-  console.log(contacts.length);
-  console.log(contacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  // function visibleContacts(value) {
-  //    if (value === '') {
-  //     return contacts;
-  //   } else {
-  //     return contacts.filter(contact => {
-  //       return contact.name.toLocaleLowerCase().includes(value);
-  //     });
-  //   }
-  // }
+  function visibleContacts(value) {
+    if (value === '') {
+      return contacts;
+    } else {
+      return contacts.filter(contact => {
+        return contact.name.toLocaleLowerCase().includes(value);
+      });
+    }
+  }
 
-  const normalizedFilter = filter.toLowerCase();
-  const visibleContacts = contacts.filter(contact =>
-    contact.name.toLowerCase().includes(normalizedFilter),
-  );
+  // const normalizedFilter = filter.toLowerCase();
+  // const visibleContacts = contacts.filter(contact =>
+  //   contact.name.toLowerCase().includes(normalizedFilter),
+  // );
 
   return (
     <div>
@@ -44,8 +42,8 @@ function ContactList() {
 
       <ul className={s.list}>
         {contacts.length > 0 &&
-          // visibleContacts(filter).map(contact => (
-          visibleContacts.map(contact => (
+          visibleContacts(filter).map(contact => (
+            // visibleContacts.map(contact => (
             <li className={s.item} key={contact.id}>
               <p>
                 <span>{contact.name}:</span> <span>{contact.phone}</span>
