@@ -2,7 +2,22 @@
   text-align: center;
   color: rgb(114, 112, 109);
 }
+body {
+  padding: 2rem;
+}
 
 li {
   /* list-style-type: none; */
+}
+a {
+  text-decoration: none;
+  color: rgba(18, 126, 228, 0.808);
+}
+
+a:hover {
+  color: rgba(8, 75, 138, 0.808);
+}
+
+a:active {
+  color: rgba(4, 49, 66, 0.808);
 }

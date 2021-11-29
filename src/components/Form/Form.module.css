@@ -1,0 +1,29 @@
+.form {
+}
+.label {
+  display: block;
+  margin-bottom: 4px;
+}
+.text {
+  display: inline-block;
+  min-width: 80px;
+}
+
+.input {
+  margin-left: 4px;
+}
+
+.button {
+  margin-top: 12px;
+
+  padding: 4px 8px;
+  border: 1px solid gray;
+  border-radius: 2px;
+  margin-right: 8px;
+  color: rgb(73, 71, 71);
+}
+
+.button:hover {
+  font-weight: bold;
+  box-shadow: 1px 1px 3px #666, -1px -1px 3px #fff, 1px 1px #666, -1px -1px #fff;
+}

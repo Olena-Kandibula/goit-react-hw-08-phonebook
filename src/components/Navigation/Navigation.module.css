@@ -1,0 +1,13 @@
+.link:not(:last-child) {
+  margin-right: 8px;
+}
+
+/* .link:hover {
+  font-weight: bold;
+  text-shadow: 1px 1px 3px #666, -1px -1px 3px #fff, 1px 1px #666,
+    -1px -1px #fff;
+}
+
+a.link:active {
+  color: green;
+} */

@@ -1,8 +1,8 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 
-import { fetchContacts, removeContact } from 'store/contactSlice';
-import { getContacts, getFilter } from 'store/contactsSelectors';
+import { fetchContacts, removeContact } from 'redux/contacts/contact-slice';
+import { getContacts, getFilter } from 'redux/contacts/contactsSelectors';
 
 import s from '../ContactList/ContactList.module.css';
 import { TiUserDeleteOutline } from 'react-icons/ti';
@@ -14,11 +14,23 @@ function ContactList() {
   const filter = useSelector(getFilter);
 
   const dispatch = useDispatch();
+  console.log(contacts.length);
+  console.log(contacts);
 
   useEffect(() => {
     dispatch(fetchContacts());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+
+  // function visibleContacts(value) {
+  //    if (value === '') {
+  //     return contacts;
+  //   } else {
+  //     return contacts.filter(contact => {
+  //       return contact.name.toLocaleLowerCase().includes(value);
+  //     });
+  //   }
+  // }
 
   const normalizedFilter = filter.toLowerCase();
   const visibleContacts = contacts.filter(contact =>
@@ -32,6 +44,7 @@ function ContactList() {
 
       <ul className={s.list}>
         {contacts.length > 0 &&
+          // visibleContacts(filter).map(contact => (
           visibleContacts.map(contact => (
             <li className={s.item} key={contact.id}>
               <p>

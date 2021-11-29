@@ -1,25 +1,69 @@
 import './App.css';
+import { useEffect } from 'react';
+import { useDispatch } from 'react-redux';
+import { Switch } from 'react-router-dom';
 
-import Container from './components/Container/Container';
-import ContactForm from './components/ContactForm/ContactForm';
-import Filter from './components/Filter/Filter';
-import ContactList from './components/ContactList/ContactList';
+import PrivateRoute from 'components/PrivateRoute';
+import PublicRoute from 'components/PublicRoute';
+
+import { fetchCurrentUser } from 'redux/auth/auth-slice';
+
+import HomeView from 'views/HomeView';
+import LoginView from 'views/LoginView';
+import RegisterView from 'views/RegisterView';
+import ContactView from 'views/ContactView';
+import Container from 'components/Container';
+import AppBar from 'components/AppBar';
 
 function App() {
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchCurrentUser());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+
   return (
-    <div className="App">
-      <h1>Phonebook</h1>
+    <Container>
+      <AppBar />
 
-      <Container>
-        <ContactForm />
-      </Container>
-
-      <Container title="Contacts">
-        <Filter />
-        <ContactList />
-      </Container>
-    </div>
+      <Switch>
+        <PublicRoute
+          exact
+          path="/"
+          // redirectTo="/contacts"
+          restricted
+        >
+          <HomeView />
+        </PublicRoute>
+        <PublicRoute exact path="/register" restricted>
+          <RegisterView />
+        </PublicRoute>
+        <PublicRoute exact path="/login" redirectTo="/" restricted>
+          <LoginView />
+        </PublicRoute>
+        <PrivateRoute path="/contacts" redirectTo="/">
+          <ContactView />
+        </PrivateRoute>
+      </Switch>
+    </Container>
   );
 }
 
 export default App;
+
+// =======================================
+// import {Router, Route, Routes} from 'react-router-dom'
+//  <Routes>
+//         <Route path='/' element={<HomeView />} />
+//         <Route path='/register' element={<RegisterView />} />
+//         <Route path='/login' element={<LoginView />} />
+//         <Route path='/contacts' element={<ContactView />} />
+
+//          <Route exact path='/contacts' componennt={Contacts} />
+//      <Route  path='*' element={<Error/>} />
+//          < Route
+//           path="*"
+//           element={< p > Здесь ничего нет! </p>}
+//         />
+//       </Routes>

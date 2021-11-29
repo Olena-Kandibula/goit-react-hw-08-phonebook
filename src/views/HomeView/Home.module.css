@@ -1,0 +1,28 @@
+.link {
+  padding: 4px 8px;
+  /* border: 1px solid gray; */
+  /* border-radius: 2px; */
+  /* margin-right: 8px; */
+  /* color: rgb(73, 71, 71); */
+}
+
+.link:not(:last-child) {
+  margin-right: 8px;
+}
+
+/* .link:hover {
+  /* font-weight: bold; */
+/* text-shadow: 1px 1px 2px #666, -1px -1px 3px #fff, 1px 1px #666, */
+/* -1px -1px #fff; */
+/* } */
+
+/* a.link:active {
+  color: green;
+} */
+.home {
+  padding: 40px 0;
+}
+
+.box {
+  padding: 20px;
+}
