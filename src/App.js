@@ -1,12 +1,13 @@
 import './App.css';
 import { useEffect } from 'react';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { Switch } from 'react-router-dom';
 
 import PrivateRoute from 'components/PrivateRoute';
 import PublicRoute from 'components/PublicRoute';
 
 import { fetchCurrentUser } from 'redux/auth/auth-slice';
+import { getCurrentUser } from 'redux/auth/authSelectors';
 
 import HomeView from 'views/HomeView';
 import LoginView from 'views/LoginView';
@@ -17,6 +18,7 @@ import AppBar from 'components/AppBar';
 
 function App() {
   const dispatch = useDispatch();
+  const isCurrentUser = useSelector(getCurrentUser);
 
   useEffect(() => {
     dispatch(fetchCurrentUser());
@@ -26,26 +28,32 @@ function App() {
   return (
     <Container>
       <AppBar />
+      {/* {isCurrentUser && */}
+      <>
+        <Switch>
+          <PublicRoute
+            exact
+            path="/"
+            // redirectTo="/contacts"
+            restricted
+          >
+            <HomeView />
+          </PublicRoute>
 
-      <Switch>
-        <PublicRoute
-          exact
-          path="/"
-          // redirectTo="/contacts"
-          restricted
-        >
-          <HomeView />
-        </PublicRoute>
-        <PublicRoute exact path="/register" restricted>
-          <RegisterView />
-        </PublicRoute>
-        <PublicRoute exact path="/login" redirectTo="/" restricted>
-          <LoginView />
-        </PublicRoute>
-        <PrivateRoute path="/contacts" redirectTo="/">
-          <ContactView />
-        </PrivateRoute>
-      </Switch>
+          <PublicRoute exact path="/register" redirectTo="/" restricted>
+            <RegisterView />
+          </PublicRoute>
+
+          <PublicRoute exact path="/login" redirectTo="/" restricted>
+            <LoginView />
+          </PublicRoute>
+
+          <PrivateRoute path="/contacts" redirectTo="/">
+            <ContactView />
+          </PrivateRoute>
+        </Switch>
+      </>
+      {/* } */}
     </Container>
   );
 }

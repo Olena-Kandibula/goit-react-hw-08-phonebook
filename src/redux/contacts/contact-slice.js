@@ -134,6 +134,7 @@ const contactSlice = createSlice({
     [fetchContacts.pending]: setPending,
     [fetchContacts.fulfilled]: (state, action) => {
       state.status = 'resolved';
+      state.contacts = action.payload;
       state.error = null;
     },
     [fetchContacts.rejected]: setError,

@@ -71,6 +71,7 @@ const authSlice = createSlice({
     },
     token: null,
     isLoggedIn: false,
+    isRefreshing: false,
   },
 
   extraReducers: {
@@ -89,9 +90,15 @@ const authSlice = createSlice({
       state.token = null;
       state.isLoggedIn = false;
     },
+
+    [fetchCurrentUser.pending]: state => {
+      state.isRefreshing = false;
+    },
+
     [fetchCurrentUser.fulfilled]: (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
+      state.isRefreshing = true;
     },
   },
 });
