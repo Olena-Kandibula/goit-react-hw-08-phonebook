@@ -39,7 +39,7 @@ function ContactForm() {
 
     const newContact = {
       name: name,
-      phone: phone,
+      number: phone,
     };
 
     if (contacts) {

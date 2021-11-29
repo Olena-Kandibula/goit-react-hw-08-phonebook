@@ -133,7 +133,6 @@ const contactSlice = createSlice({
   extraReducers: {
     [fetchContacts.pending]: setPending,
     [fetchContacts.fulfilled]: (state, action) => {
-      state.contacts = action.payload;
       state.status = 'resolved';
       state.error = null;
     },
