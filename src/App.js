@@ -28,32 +28,27 @@ function App() {
   return (
     <Container>
       <AppBar />
-      {/* {isCurrentUser && */}
-      <>
-        <Switch>
-          <PublicRoute
-            exact
-            path="/"
-            // redirectTo="/contacts"
-            restricted
-          >
-            <HomeView />
-          </PublicRoute>
+      {isCurrentUser && (
+        <>
+          <Switch>
+            <PublicRoute exact path="/" restricted>
+              <HomeView />
+            </PublicRoute>
 
-          <PublicRoute exact path="/register" redirectTo="/" restricted>
-            <RegisterView />
-          </PublicRoute>
+            <PublicRoute exact path="/register" redirectTo="/" restricted>
+              <RegisterView />
+            </PublicRoute>
 
-          <PublicRoute exact path="/login" redirectTo="/" restricted>
-            <LoginView />
-          </PublicRoute>
+            <PublicRoute exact path="/login" redirectTo="/" restricted>
+              <LoginView />
+            </PublicRoute>
 
-          <PrivateRoute path="/contacts" redirectTo="/">
-            <ContactView />
-          </PrivateRoute>
-        </Switch>
-      </>
-      {/* } */}
+            <PrivateRoute path="/contacts" redirectTo="/">
+              <ContactView />
+            </PrivateRoute>
+          </Switch>
+        </>
+      )}
     </Container>
   );
 }
