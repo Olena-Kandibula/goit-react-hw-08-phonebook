@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import s from './Form.module.css';
@@ -93,6 +94,11 @@ const Form = ({ title, handleClick }) => {
       </form>
     </div>
   );
+};
+
+Form.propTypes = {
+  title: PropTypes.string,
+  handleClick: PropTypes.func,
 };
 
 export { Form };

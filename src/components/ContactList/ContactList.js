@@ -46,7 +46,7 @@ function ContactList() {
             // visibleContacts.map(contact => (
             <li className={s.item} key={contact.id}>
               <p>
-                <span>{contact.name}:</span> <span>{contact.phone}</span>
+                <span>{contact.name}:</span> <span>{contact.number}</span>
               </p>
 
               <button

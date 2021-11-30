@@ -11,6 +11,8 @@ const token = {
     axios.defaults.headers.common.Authorization = '';
   },
 };
+const BASE_URL = 'https://connections-api.herokuapp.com';
+const getToken = () => JSON.parse(localStorage.getItem('persist:auth')).token;
 
 export const register = createAsyncThunk('auth/register', async credentials => {
   try {
@@ -22,16 +24,40 @@ export const register = createAsyncThunk('auth/register', async credentials => {
   }
 });
 
-export const logIn = createAsyncThunk('auth/login', async credentials => {
-  try {
-    const { data } = await axios.post('/users/login', credentials);
-    token.set(data.token);
+// export const logIn = createAsyncThunk('auth/login', async credentials => {
+//   try {
+//     const { data } = await axios.post('/users/login', credentials);
+//     token.set(data.token);
 
-    return data;
-  } catch (error) {
-    console.log(error.response);
-  }
-});
+// console.log(credentials)
+//     return data
+//   } catch (error) {
+//     console.log(error.response);
+//   }
+// });
+export const logIn = createAsyncThunk(
+  'auth/login',
+  async function (credentials, { rejectWithValue }) {
+    try {
+      const response = await fetch(`${BASE_URL}/users/login`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          Authorization: [JSON.parse(getToken())],
+        },
+        body: JSON.stringify(credentials),
+      });
+      if (!response.ok) {
+        throw new Error('Login disabled! Try again!');
+      }
+      const data = await response.json();
+      console.log(credentials);
+      return data;
+    } catch (error) {
+      return rejectWithValue(error.message);
+    }
+  },
+);
 
 export const logOut = createAsyncThunk('auth/logout', async () => {
   try {
@@ -71,7 +97,9 @@ const authSlice = createSlice({
     },
     token: null,
     isLoggedIn: false,
-    isRefreshing: false,
+
+    status: null,
+    error: null,
   },
 
   extraReducers: {
@@ -80,25 +108,28 @@ const authSlice = createSlice({
       state.token = action.payload.token;
       state.isLoggedIn = true;
     },
+    //   [logIn.pending]: (state, action) => {
+    //   state.user =null;
+    //   // state.token = action.payload.token;
+    //   state.isLoggedIn = false;
+    // },
     [logIn.fulfilled]: (state, action) => {
       state.user = action.payload.user;
       state.token = action.payload.token;
       state.isLoggedIn = true;
+    },
+    [logIn.rejected]: (state, action) => {
+      state.status = 'rejected';
+      state.error = action.payload;
     },
     [logOut.fulfilled]: state => {
       state.user = { name: null, email: null };
       state.token = null;
       state.isLoggedIn = false;
     },
-
-    [fetchCurrentUser.pending]: state => {
-      state.isRefreshing = false;
-    },
-
     [fetchCurrentUser.fulfilled]: (state, action) => {
       state.user = action.payload;
       state.isLoggedIn = true;
-      state.isRefreshing = true;
     },
   },
 });
